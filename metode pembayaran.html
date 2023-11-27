@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metode Pembayaran</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Mengatur tata letak elemen secara vertikal */
+            height: 100vh;
+        }
+
+        .payment-method {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 20px; /* Menambahkan margin bawah */
+        }
+
+        .navigation-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+            margin-bottom: 20px; /* Menambahkan margin bawah */
+        }
+
+        .navigation-links a:hover {
+            background-color: #555;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        .payment-details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .dana-details,
+        .atm-details,
+        .cod-details {
+            display: none;
+        }
+
+        .payment-details p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        #payment-message {
+            margin-top: 20px;
+            color: green; /* warna default untuk pesan berhasil */
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Metode Pembayaran</h1>
+    </header>
+    <main>
+        <div class="payment-method">
+            <form id="payment-form">
+                <label for="dana-payment">
+                    <input type="radio" id="dana-payment" name="payment-method" value="dana" required>
+                    Dana
+                </label>
+                <div class="dana-details payment-details">
+                    <p>Gunakan aplikasi Dana untuk pembayaran yang lebih mudah.</p>
+                </div>
+
+                <label for="atm-payment">
+                    <input type="radio" id="atm-payment" name="payment-method" value="atm" required>
+                    ATM
+                </label>
+                <div class="atm-details payment-details">
+                    <p>Masukkan kartu ATM Anda ke mesin ATM untuk pembayaran.</p>
+                </div>
+
+                <label for="cod-payment">
+                    <input type="radio" id="cod-payment" name="payment-method" value="cod" required>
+                    Cash on Delivery (COD)
+                </label>
+                <div class="cod-details payment-details">
+                    <p>Bayar ketika barang diterima. Hanya tersedia untuk wilayah tertentu.</p>
+                </div>
+
+                <button type="button" onclick="submitPayment()">Bayar</button>
+            </form>
+
+            <!-- Pesan untuk konsumen -->
+            <div id="payment-message"></div>
+        </div>
+
+        <div class="navigation-links">
+            <a href="index.html">Kembali ke Home</a>
+        </div>
+    </main>
+    <script>
+        function submitPayment() {
+            const paymentForm = document.getElementById('payment-form');
+
+            // Display payment message based on the selected method
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const paymentMessage = document.getElementById('payment-message');
+            
+            switch (paymentMethod) {
+                case 'dana':
+                    paymentMessage.innerHTML = '<p>Pembayaran dengan Dana berhasil!</p>';
+                    break;
+                case 'atm':
+                    paymentMessage.innerHTML = '<p>Pembayaran dengan ATM berhasil!</p>';
+                    break;
+                case 'cod':
+                    paymentMessage.innerHTML = '<p>Pembayaran Cash on Delivery berhasil!</p>';
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

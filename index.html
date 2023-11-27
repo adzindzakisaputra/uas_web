@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shop</title>
+    <style>
+        /* Style seperti sebelumnya */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            display: flex;
+            justify-content: space-between; /* Mengatur jarak antara elemen header */
+            align-items: center;
+        }
+        h1 {
+            font-size: 1em;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px;
+            width: 200px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        .product p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+        }
+        .contact {
+            padding: 20px;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Shop</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="keranjang.html">Keranjang</a>
+            <a href="alamat.html">Alamat</a>
+            <a href="metode pembayaran.html">Metode pembayaran</a>
+        </nav>
+    </header>
+    <main id="products-container">
+        <!-- Product cards will be dynamically added here using JavaScript -->
+    </main>
+    <div class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: info@example.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Address: 123 Main Street, Cityville</p>
+    </div>
+    
+    <script>
+        // Example product data
+        const products = [
+            { id: 1, name: 'Adidas Football Shoes', price: 1500000, image: 'adidas1-removebg-preview(1).png' },
+            { id: 2, name: 'Nike Soccer Cleats', price: 500000, image: 'nike-removebg-preview(1).png' },
+            { id: 3, name: 'Puma Running Shoes', price:790000, image: 'puma-removebg-preview.png' },
+        ];
+
+        // Function to display products
+        function displayProducts() {
+            const container = document.getElementById('products-container');
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price.toFixed(2)} Rp</p>
+                    <!-- Panggil addToCartAndNavigate saat tombol "Tambah ke Keranjang" diklik -->
+                    <button onclick="addToCartAndNavigate(${product.id})">Tambah ke Keranjang</button>
+                `;
+
+                container.appendChild(productCard);
+            });
+        }
+
+        // Fungsi untuk menambahkan produk ke keranjang dan langsung menuju halaman keranjang
+        function addToCartAndNavigate(productId) {
+            addToCart(productId); // Panggil fungsi addToCart yang telah didefinisikan sebelumnya
+            window.location.href = 'keranjang.html'; // Arahkan pengguna ke halaman keranjang
+        }
+
+        // Function to add product to cart
+        function addToCart(productId) {
+            // Retrieve existing cart items from localStorage
+            const existingCartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if the product is already in the cart
+            const existingProduct = existingCartItems.find(item => item.id === productId);
+
+            if (existingProduct) {
+                // If the product is already in the cart, you can update the quantity or other details here
+                console.log('Product already in the cart:', existingProduct);
+            } else {
+                // If the product is not in the cart, add it
+                const productToAdd = products.find(product => product.id === productId);
+
+                if (productToAdd) {
+                    existingCartItems.push(productToAdd);
+                    // Save the updated cart items to localStorage
+                    localStorage.setItem('cart', JSON.stringify(existingCartItems));
+                    console.log('Product added to cart:', productToAdd);
+                }
+            }
+        }
+
+        // Display products when the page is loaded
+        displayProducts();
+    </script>
+</body>
+</html>

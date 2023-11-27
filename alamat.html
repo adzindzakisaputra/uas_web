@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alamat</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .contact {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+        }
+
+        .message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navigation a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h4>Alamat Kami</h4>
+        <div class="navigation">
+            <a href="index.html">Home</a>
+        </div>
+    </header>
+    <main>
+        <div class="contact">
+            <h2>Alamat Pengiriman</h2>
+            <form id="shipping-form">
+                <label for="fullname">Nama Lengkap:</label>
+                <input type="text" id="fullname" name="fullname" required>
+
+                <label for="address">Alamat:</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="city">Kota:</label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="zipcode">Kode Pos:</label>
+                <input type="text" id="zipcode" name="zipcode" required>
+
+                <div class="message success-message" id="success-message">Formulir berhasil dikirimkan!</div>
+                <div class="message error-message" id="error-message">Harap isi semua kolom sebelum mengirimkan.</div>
+
+                <button type="button" onclick="submitForm()">Kirim</button>
+            </form>
+        </div>
+
+        <div class="contact">
+            <h2>Hubungi Kami</h2>
+            <p>Email: info@example.com</p>
+            <p>Telepon: +1 (555) 123-4567</p>
+            <p>Alamat: 123 Jalan Utama, KotaKu</p>
+        </div>
+    </main>
+    <script>
+        function submitForm() {
+            const form = document.getElementById('shipping-form');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+
+            // Periksa apakah semua kolom diisi
+            const isFormValid = Array.from(form.elements).every(element => {
+                return element.type !== 'text' || element.value.trim() !== '';
+            });
+
+            if (isFormValid) {
+                // Anda dapat menambahkan logika di sini untuk menangani pengiriman formulir
+                // Untuk saat ini, kita hanya akan menampilkan pesan sukses
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+            } else {
+                // Tampilkan pesan kesalahan jika formulir tidak valid
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
